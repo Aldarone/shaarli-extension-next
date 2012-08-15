@@ -3,5 +3,4 @@ skin shaarli global chrome/skin/
 
 overlay chrome://browser/content/browser.xul chrome://shaarli/content/overlay.xul
 
-style chrome://shaarli/content/overlay.xul chrome://shaarli/skin/overlay.css
 style chrome://global/content/customizeToolbar.xul chrome://shaarli/skin/overlay.css

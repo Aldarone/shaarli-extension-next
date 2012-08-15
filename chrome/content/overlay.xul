@@ -1,8 +1,14 @@
 <?xml version="1.0"?>
+<?xml-stylesheet href="chrome://shaarli/skin/overlay.css" type="text/css"?>
 <overlay id="shaarli-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<script src="overlay.js" />
 	<toolbarpalette id="BrowserToolbarPalette">
-		<toolbarbutton id="shaarli-toolbar-button" class="toolbarbutton-1" label="Shaarli"
-			tooltiptext="Post URL to Shaarli" oncommand="shaarli.post(event);" />
+		<toolbarbutton id="shaarli-toolbar-button" class="toolbarbutton-1" type="menu-button"
+			label="Shaarli" oncommand="shaarli.post(event);">
+			<menupopup>
+        <menuitem label="Post current URL to Shaarli" oncommand="shaarli.post(event);" default="true" />
+        <menuitem label="Open Shaarli" oncommand="shaarli.open(event);" />
+      </menupopup>
+		</toolbarbutton>
 	</toolbarpalette>
 </overlay>
