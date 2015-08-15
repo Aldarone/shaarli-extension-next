@@ -1,0 +1,32 @@
+{
+  "title": "Shaarli-next",
+  "name": "shaarli-next",
+  "version": "2.0",
+  "description": "Post URL to Shaarli",
+  "main": "index.js",
+  "author": "Nicolas Vinot",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "GPLv3",
+  "preferences": [
+    {
+        "name": "shaarliUrl",
+        "title": "Shaarli URL",
+        "type": "string",
+        "value": ""
+    },
+    {
+        "name": "shaarliWidth",
+        "title": "Window width",
+        "type": "integer",
+        "value": 600
+    },
+    {
+        "name": "shaarliHeight",
+        "title": "Window height",
+        "type": "integer",
+        "value": 390
+    }
+  ]
+}

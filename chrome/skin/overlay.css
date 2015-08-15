@@ -1,7 +1,0 @@
-#shaarli-toolbar-button {
-  list-style-image: url("chrome://shaarli/skin/toolbar.png");
-}
-
-toolbar[iconsize="small"] #shaarli-toolbar-button {
-  list-style-image: url("chrome://shaarli/skin/toolbar-small.png");
-}
