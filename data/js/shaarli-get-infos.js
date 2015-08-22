@@ -1,4 +1,4 @@
-self.port.on('ping', function shaarliPing(message){
+self.port.on('ping', function shaarliPing(){
     var url = document.URL;
     var title = getTitle();
     var description = getDescription();
@@ -7,7 +7,6 @@ self.port.on('ping', function shaarliPing(message){
         shaareUrl: url,
         shaareTitle: title,
         shaareDescription: description,
-        tabId: message.tabId
     };
 
     self.port.emit('pong', pageInfos);

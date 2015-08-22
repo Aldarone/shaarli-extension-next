@@ -1,7 +1,6 @@
 var self = require('sdk/self');
 var tabs = require('sdk/tabs');
 var workers = require('sdk/content/worker');
-var ss = require('sdk/simple-storage');
 
 var {ActionButton} = require('sdk/ui/button/action');
 var {openDialog} = require('sdk/window/utils');
@@ -17,34 +16,23 @@ var toolbarButton = ActionButton({
 });
 
 var shaarli = {
-    tabReady: function shaarliTabReady(tab) {
-        var worker = tab.attach({
+    buttonClick: function shaarliButtonClick(state) {
+        var worker = tabs.activeTab.attach({
             contentScriptFile: self.data.url('js/shaarli-get-infos.js')
         });
 
-        worker.port.emit("ping", {tabId: tab.id});
-        worker.port.on("pong", shaarli.setTabState);
+        worker.port.emit('ping');
+        worker.port.on('pong', shaarli.postLink);
     },
 
-    tabClose: function shaarliTabClose(tab) {
-        delete ss.storage.tabState[tab.id];
-    },
-
-    setTabState: function shaarliSetTabState(linkInfo) {
-        ss.storage.tabState[linkInfo.tabId] = linkInfo;
-    },
-
-    postLink: function shaarliPostLink() {
-        var tabState = ss.storage.tabState[tabs.activeTab.id];
+    postLink: function shaarliPostLink(linkInfo) {
         var shaarliUrl = require('sdk/simple-prefs').prefs.shaarliUrl;
         var height = require('sdk/simple-prefs').prefs.shaarliHeight;
         var width = require('sdk/simple-prefs').prefs.shaarliWidth;
 
-        console.log(tabState);
-
-        var url = tabState.shaareUrl;
-        var title = tabState.shaareTitle;
-        var description = tabState.shaareDescription;
+        var url = linkInfo.shaareUrl;
+        var title = linkInfo.shaareTitle;
+        var description = linkInfo.shaareDescription;
 
         var GET = [
             'post='+encodeURIComponent(url),
@@ -64,8 +52,6 @@ var shaarli = {
             'dialog'
         ];
 
-        console.log(shaarliUrl+"?"+GET.join('&'));
-
         openDialog({
             url: shaarliUrl+"?"+GET.join('&'),
             features: features.join(',')
@@ -73,7 +59,4 @@ var shaarli = {
     }
 };
 
-toolbarButton.on('click', shaarli.postLink);
-tabs.on('ready', shaarli.tabReady);
-tabs.on('close', shaarli.tabClose);
-ss.storage.tabState = {};
+toolbarButton.on('click', shaarli.buttonClick);
