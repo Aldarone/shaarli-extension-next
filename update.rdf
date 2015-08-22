@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <!-- This Description resource includes all the update and compatibility information for
+       a single add-on with the id foobar@developer.mozilla.org. You can list multiple
+       add-ons information in the same RDF file. -->
+  <RDF:Description about="urn:mozilla:extension:@shaarli-next">
+    <em:updates>
+      <RDF:Seq>
+
+        <!-- Each li is a different version of the same add-on -->
+        <RDF:li>
+          <RDF:Description>
+            <em:version>2.0.1</em:version> <!-- This is the version number of the add-on -->
+
+            <!-- One targetApplication for each application the add-on is compatible with -->
+            <em:targetApplication>
+              <RDF:Description>
+                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+                <em:minVersion>38.0a1</em:minVersion>
+                <em:maxVersion>40.*</em:maxVersion>
+
+                <!-- This is where this version of the add-on will be downloaded from -->
+                <em:updateLink>https://github.com/Aldarone/shaarli-extension-next/releases/download/v2.0.1/shaarli_next-2.0.1-signed.xpi</em:updateLink>
+                <em:updateHash>sha256:6e878f984cef111406f50b846ea379a61d27e71766b6bb821d79c55ca2ed090e</em:updateHash>
+
+                <!-- A page describing what is new in this updated version -->
+                <!-- <em:updateInfoURL>http://www.mysite.com/updateinfo2.2.xhtml</em:updateInfoURL> -->
+              </RDF:Description>
+            </em:targetApplication>
+          </RDF:Description>
+        </RDF:li>
+
+        <RDF:li>
+          <RDF:Description>
+            <em:version>2.0.0</em:version>
+            <em:targetApplication>
+              <RDF:Description>
+                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+                <em:minVersion>38.0a1</em:minVersion>
+                <em:maxVersion>40.*</em:maxVersion>
+                <em:updateLink>https://github.com/Aldarone/shaarli-extension-next/releases/download/v2.0.0/shaarli-next-2.0-signed.xpi</em:updateLink>
+                <em:updateHash>sha256:65b3714179b1ddbf463004769c016c606023bdd57bce8dded23f9b45dab8540b</em:updateHash>
+              </RDF:Description>
+            </em:targetApplication>
+          </RDF:Description>
+        </RDF:li>
+
+      </RDF:Seq>
+    </em:updates>
+  </RDF:Description>
+</RDF:RDF>
