@@ -1,7 +1,7 @@
 {
   "title": "Shaarli-next",
   "name": "shaarli-next",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Post URL to Shaarli",
   "main": "index.js",
   "author": "Alda Marteau-Hardi",
@@ -9,6 +9,7 @@
     "firefox": ">=38.0a1"
   },
   "license": "GPLv3",
+  "updateURL": "https://raw.githubusercontent.com/Aldarone/shaarli-extension-next/master/update.rdf",
   "preferences": [
     {
         "name": "shaarliUrl",
