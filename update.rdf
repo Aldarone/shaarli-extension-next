@@ -13,6 +13,29 @@
         <!-- Each li is a different version of the same add-on -->
         <RDF:li>
           <RDF:Description>
+            <em:version>2.0.2</em:version> <!-- This is the version number of the add-on -->
+
+            <!-- One targetApplication for each application the add-on is compatible with -->
+            <em:targetApplication>
+              <RDF:Description>
+                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+                <em:minVersion>38.0a1</em:minVersion>
+                <em:maxVersion>41.*</em:maxVersion>
+
+                <!-- This is where this version of the add-on will be downloaded from -->
+                <em:updateLink>https://github.com/Aldarone/shaarli-extension-next/releases/download/v2.0.2/shaarli_next-2.0.2-signed.xpi</em:updateLink>
+                <em:updateHash>sha256:e1b6f00032a1f0ba33de8a1eed09951067edc29dbd0f9ae9055ee9e7d09efa9c</em:updateHash>
+
+                <!-- A page describing what is new in this updated version -->
+                <!-- <em:updateInfoURL>http://www.mysite.com/updateinfo2.2.xhtml</em:updateInfoURL> -->
+              </RDF:Description>
+            </em:targetApplication>
+          </RDF:Description>
+        </RDF:li>
+
+        <!-- Each li is a different version of the same add-on -->
+        <RDF:li>
+          <RDF:Description>
             <em:version>2.0.1</em:version> <!-- This is the version number of the add-on -->
 
             <!-- One targetApplication for each application the add-on is compatible with -->
