@@ -18,7 +18,9 @@ function getTitle() {
 }
 
 function getDescription() {
-    var description = document.querySelector('meta[property="og:description"]') || document.querySelector('meta[name="description"]');
+    var description = window.getSelection().toString()
+        || document.querySelector('meta[property="og:description"]').content
+        || document.querySelector('meta[name="description"]').content;
 
-    return (description) ? description.content : '';
+    return (description) ? description : '';
 }
