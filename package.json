@@ -28,6 +28,12 @@
         "title": "Window height",
         "type": "integer",
         "value": 390
+    },
+    {
+        "name": "shaarliOpenTab",
+        "title": "Open a tab instead of a dialog window.",
+        "type": "bool",
+        "value": false
     }
   ]
 }

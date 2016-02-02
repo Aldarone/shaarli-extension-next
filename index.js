@@ -1,6 +1,8 @@
 var self = require('sdk/self');
 var tabs = require('sdk/tabs');
 var workers = require('sdk/content/worker');
+var urls = require('sdk/url');
+var _ = require("sdk/l10n").get;
 
 var {ActionButton} = require('sdk/ui/button/action');
 var {openDialog} = require('sdk/window/utils');
@@ -15,6 +17,79 @@ var toolbarButton = ActionButton({
     }
 });
 
+function shaarliIt(url, title, description) {
+    var prefs = require('sdk/simple-prefs').prefs;
+    var shaarliUrl = prefs.shaarliUrl;
+    var height = prefs.shaarliHeight;
+    var width = prefs.shaarliWidth;
+    var openTab = prefs.shaarliOpenTab;
+
+    // If the URL is not set in the preferences, open the preference dialog for the add-on.
+    if (!shaarliUrl) {
+        var notifications = require("sdk/notifications");
+        notifications.notify({
+            title: _("cfg_msg_title"),
+            text: _("cfg_msg_text")
+        });
+        var am = require("sdk/preferences/utils");
+        am.open(self);
+        return;
+    }
+    if (!urls.isValidURI(shaarliUrl)) {
+        var notifications = require("sdk/notifications");
+        notifications.notify({
+            title: _("cfg_msg_title"),
+            text: _("cfg_invalid_msg_text")
+        });
+        var am = require("sdk/preferences/utils");
+        am.open(self);
+        return;
+    }
+
+    var GET = [
+        'post='+encodeURIComponent(url),
+        'title='+encodeURIComponent(title),
+        'description='+encodeURIComponent(description),
+            'source=bookmarklet'
+    ];
+
+    var features = [
+        'height='+height,
+        'width='+width,
+        'centerscreen=yes',
+            'toolbar=no',
+            'menubar=no',
+                'scrollbars=no',
+                'status=no',
+                    'dialog'
+    ];
+
+    var postUrl = shaarliUrl+"?"+GET.join('&');
+
+    if (openTab) {
+        if (typeof myTab !== 'undefined') {
+            myTab.url = postUrl;
+            myTab.activate();
+        } else
+            tabs.open({
+                url: postUrl,
+                onOpen: function onOpen(tab)
+                {
+                    myTab = tab;
+                },
+                onClose: function onClose(tab)
+                {
+                    delete myTab;
+                }
+            });
+    } else {
+        openDialog({
+            url: postUrl,
+            features: features.join(',')
+        });
+    }
+}
+
 var shaarli = {
     buttonClick: function shaarliButtonClick(state) {
         var worker = tabs.activeTab.attach({
@@ -26,37 +101,24 @@ var shaarli = {
     },
 
     postLink: function shaarliPostLink(linkInfo) {
-        var shaarliUrl = require('sdk/simple-prefs').prefs.shaarliUrl;
-        var height = require('sdk/simple-prefs').prefs.shaarliHeight;
-        var width = require('sdk/simple-prefs').prefs.shaarliWidth;
-
         var url = linkInfo.shaareUrl;
         var title = linkInfo.shaareTitle;
         var description = linkInfo.shaareDescription;
 
-        var GET = [
-            'post='+encodeURIComponent(url),
-            'title='+encodeURIComponent(title),
-            'description='+encodeURIComponent(description),
-            'source=bookmarklet'
-        ];
-
-        var features = [
-            'height='+height,
-            'width='+width,
-            'centerscreen=yes',
-            'toolbar=no',
-            'menubar=no',
-            'scrollbars=no',
-            'status=no',
-            'dialog'
-        ];
-
-        openDialog({
-            url: shaarliUrl+"?"+GET.join('&'),
-            features: features.join(',')
-        });
+    shaarliIt(url, title, description);
     }
 };
 
 toolbarButton.on('click', shaarli.buttonClick);
+
+require("sdk/context-menu").Item({
+    label: "Shaarli it!",
+    image: self.data.url('icon-16.png'),
+    context: require("sdk/context-menu").SelectorContext("a[href]"),
+    contentScript: 'self.on("click", function (node, data) {' +
+        '  self.postMessage({url: node.href, title: node.textContent, desc: "" });' +
+            '});',
+    onMessage: function (info) {
+        shaarliIt(info.url, info.title, info.desc);
+    }
+});
