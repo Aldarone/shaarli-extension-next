@@ -50,18 +50,17 @@ function shaarliIt(url, title, description) {
         'post='+encodeURIComponent(url),
         'title='+encodeURIComponent(title),
         'description='+encodeURIComponent(description),
-            'source=bookmarklet'
     ];
 
     var features = [
         'height='+height,
         'width='+width,
         'centerscreen=yes',
-            'toolbar=no',
-            'menubar=no',
-                'scrollbars=no',
-                'status=no',
-                    'dialog'
+        'toolbar=no',
+        'menubar=no',
+        'scrollbars=no',
+        'status=no',
+        'dialog'
     ];
 
     var postUrl = shaarliUrl+"?"+GET.join('&');
@@ -84,7 +83,7 @@ function shaarliIt(url, title, description) {
             });
     } else {
         openDialog({
-            url: postUrl,
+            url: postUrl + 'source=bookmarklet',
             features: features.join(',')
         });
     }
