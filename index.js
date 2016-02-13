@@ -17,6 +17,8 @@ var toolbarButton = ActionButton({
     }
 });
 
+var shaarliTab;
+
 function shaarliIt(url, title, description) {
     var prefs = require('sdk/simple-prefs').prefs;
     var shaarliUrl = prefs.shaarliUrl;
@@ -52,6 +54,10 @@ function shaarliIt(url, title, description) {
         'description='+encodeURIComponent(description),
     ];
 
+    if (! openTab) {
+      GET.push('source=bookmarklet');
+    }
+
     var features = [
         'height='+height,
         'width='+width,
@@ -66,24 +72,24 @@ function shaarliIt(url, title, description) {
     var postUrl = shaarliUrl+"?"+GET.join('&');
 
     if (openTab) {
-        if (typeof myTab !== 'undefined') {
-            myTab.url = postUrl;
-            myTab.activate();
+        if (typeof shaarliTab !== 'undefined') {
+            shaarliTab.url = postUrl;
+            shaarliTab.activate();
         } else
             tabs.open({
                 url: postUrl,
                 onOpen: function onOpen(tab)
                 {
-                    myTab = tab;
+                    shaarliTab = tab;
                 },
                 onClose: function onClose(tab)
                 {
-                    delete myTab;
+                    delete shaarliTab;
                 }
             });
     } else {
         openDialog({
-            url: postUrl + 'source=bookmarklet',
+            url: postUrl,
             features: features.join(',')
         });
     }
