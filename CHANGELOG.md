@@ -1,5 +1,5 @@
 # Changelog
-## [2.2.1] - unreleased
+## [2.2.1] - 2016-02-13
 
 ### Changed
 
