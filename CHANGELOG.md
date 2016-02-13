@@ -1,6 +1,15 @@
 # Changelog
+## [2.2.1] - unreleased
 
-## [2.2.0] - unreleased
+### Changed
+
+* Big refactoring
+
+### Fixed
+
+* The new window autocloses again.
+
+## [2.2.0] - 2016-02-13
 
 ### New
 
