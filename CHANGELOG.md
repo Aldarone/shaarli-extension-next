@@ -1,4 +1,10 @@
 # Changelog
+## [2.2.2] - 2016-02-13
+
+### Fixed
+
+* Added missing script
+
 ## [2.2.1] - 2016-02-13
 
 ### Changed

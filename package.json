@@ -1,7 +1,7 @@
 {
   "title": "Shaarli-next",
   "name": "shaarli-next",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Post URL to Shaarli",
   "main": "index.js",
   "author": "Alda Marteau-Hardi",
