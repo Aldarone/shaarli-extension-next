@@ -6,7 +6,7 @@
   "main": "index.js",
   "author": "Alda Marteau-Hardi",
   "engines": {
-    "firefox": ">=38.0a1"
+    "firefox": "38.* - 46.0a2"
   },
   "license": "GPLv3",
   "updateURL": "https://raw.githubusercontent.com/Aldarone/shaarli-extension-next/master/update.rdf",
