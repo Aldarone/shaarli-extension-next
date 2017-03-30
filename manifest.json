@@ -1,13 +1,36 @@
 {
+  "manifest_version": 2,
   "title": "Shaarli-next",
   "name": "shaarli-next",
   "version": "2.2.2",
   "description": "Post URL to Shaarli",
-  "main": "index.js",
   "author": "Alda Marteau-Hardi",
-  "engines": {
-    "firefox": "38.* - 46.0a2"
+  "icon": "src/img/icon-64.png",
+  "applications": {
+      "gecko": {
+          "id": "shaarli-next@alda",
+          "strict_min_version": "52.0"
+      }
   },
+  "background": {
+    "scripts": ["src/background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["http?://*"],
+      "js": ["src/content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "browser_action": {
+      "browser_style": true,
+      "default-icon": {
+          "16": "src/img/icon-16.png",
+          "32": "src/img/icon-32.png",
+          "64": "src/img/icon-64.png"
+      }
+  },
+  "permissions": ["activeTab"],
   "license": "GPLv3",
   "updateURL": "https://raw.githubusercontent.com/Aldarone/shaarli-extension-next/master/update.rdf",
   "preferences": [
